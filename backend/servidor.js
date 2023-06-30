@@ -1,9 +1,11 @@
+import cors from 'cors';
 import express from "express";
 import mysql from "mysql";
 
 //crear intancia express
 
 const app=express();
+app.use(cors());
 
 //cramos la conexion
 
@@ -24,8 +26,19 @@ conexion.connect(function(error){
     }
 });
 
+//Consultar la lista de mascotas
+app.get('/obtenerMascotas',(peticion, respuesta)=>{
+    const sql="Select * from mascotas";
+    conexion.query(sql,(error, resultado) =>{
+        if(error) return respuesta.json({mensaje:"error"});
+        return respuesta.json({mensaje:"exitoso",contenido:resultado});
+    });
+});
+
+
+
 //INICIAMOS EL SERVIDOR 
 
-app.listen(8081,()=>{
+app.listen(8082,()=>{
     console.log("Servidor iniciado");
 });
