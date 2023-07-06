@@ -13,7 +13,7 @@ const conexion=mysql.createConnection({
     server:'localhost',
     user:'root',
     password:'',
-    database:'mascotitas'
+    database:'mascotiras'
 });
 
 //verificamos conexion
