@@ -1,10 +1,12 @@
 import cors from 'cors';
 import express from "express";
 import mysql from "mysql";
+import  Jwt from 'jsonwebtoken';
 
 //crear intancia express
 
 const app=express();
+app.use(express.json());
 app.use(cors());
 
 //cramos la conexion
@@ -35,6 +37,20 @@ app.get('/obtenerMascotas',(peticion, respuesta)=>{
     });
 });
 
+app.post('/acceso', (peticion,respuesta)=>{
+    const sql="select * from usuarios where correo_electronico=? and contrasenia=?";
+    conexion.query(sql,[peticion.body.correo_electronico,peticion.body.contrasenia],
+    (error,resultado)=>{
+        if(error) return respuesta.json({mensaje:"error en la consulta"});
+        if(resultado.length>0){
+            const token=Jwt.sign({usuario:'administrador'},'12345678', {expiresIn:'1d'});
+            respuesta.cookie(token);
+            return respuesta.json({Estatus:"CORRECTO",Usuario:token})  
+        }else{
+            return respuesta.json({Estatus:"ERROR", Error:"Usuario o contraseña incorrecta"});
+        }
+    })
+});
 
 
 //INICIAMOS EL SERVIDOR 

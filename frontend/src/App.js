@@ -6,7 +6,7 @@ import Inicio from './paginas/Inicio';
 import Nosotros from './paginas/Nosotros';
 import Categorias from './paginas/Categorias';
 import Contacto from './paginas/Contacto';
-import Registro from './paginas/Registro';
+import Acceso from './paginas/Acceso';
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       <Route path='/nosotros' element={<Nosotros/>}></Route>
       <Route path='/categorias' element={<Categorias/>}></Route>
       <Route path='/contacto' element={<Contacto/>}></Route>
-      <Route path='/registro' element={<Registro/>}></Route>
+      <Route path='/acceso' element={<Acceso/>}></Route>
       </Routes>
     </BrowserRouter>
   );
